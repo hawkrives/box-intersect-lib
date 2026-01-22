@@ -61,7 +61,7 @@ jobs:
         run: |
           set -ev
           cd crates/box-intersect-lib-py
-          uv sync --no-install-project
+          uv sync --no-install-project --no-build
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
           uv run pytest
       - name: pytest
@@ -78,7 +78,7 @@ jobs:
           run: |
             set -ev
             cd crates/box-intersect-lib-py
-            uv sync --no-install-project
+            uv sync --no-install-project --no-build
             uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
             uv run pytest
 
@@ -124,7 +124,7 @@ jobs:
             set -ev
             apk add py3-pip py3-virtualenv
             cd crates/box-intersect-lib-py
-            uv sync --no-install-project
+            uv sync --no-install-project --no-build
             uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
             uv run pytest
       - name: pytest
@@ -139,7 +139,7 @@ jobs:
           run: |
             set -ev
             cd crates/box-intersect-lib-py
-            uv sync --no-install-project
+            uv sync --no-install-project --no-build
             uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
             uv run pytest
 
@@ -180,7 +180,7 @@ jobs:
         run: |
           set -ev
           cd crates/box-intersect-lib-py
-          uv sync --no-install-project
+          uv sync --no-install-project --no-build
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
           uv run pytest
 
@@ -215,7 +215,7 @@ jobs:
         run: |
           set -ev
           cd crates/box-intersect-lib-py
-          uv sync --no-install-project
+          uv sync --no-install-project --no-build
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
           uv run pytest
 
