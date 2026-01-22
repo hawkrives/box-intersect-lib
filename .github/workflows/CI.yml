@@ -158,7 +158,7 @@ jobs:
         platform:
           - runner: windows-latest
             target: x64
-            python_arch: x64
+            python_arch: x86_x64
           - runner: windows-latest
             target: x86
             python_arch: x86
