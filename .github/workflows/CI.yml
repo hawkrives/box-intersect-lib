@@ -64,8 +64,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          ls -l dist
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+          ls -l ../../dist
+          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
           uv run pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
@@ -82,8 +82,8 @@ jobs:
             set -ex
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            ls -l dist
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+            ls -l ../../dist
+            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
             uv run pytest
 
   musllinux:
@@ -131,8 +131,8 @@ jobs:
             apk add py3-pip py3-virtualenv
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            ls -l dist
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+            ls -l ../../dist
+            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
             uv run pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') }}
@@ -147,8 +147,8 @@ jobs:
             set -ex
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            ls -l dist
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+            ls -l ../../dist
+            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
             uv run pytest
 
   windows:
@@ -191,8 +191,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          ls -l dist
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+          ls -l ../../dist
+          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
           uv run pytest
 
   macos:
@@ -229,8 +229,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          ls -l dist
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
+          ls -l ../../dist
+          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
           uv run pytest
 
   sdist:
