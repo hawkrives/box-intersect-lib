@@ -38,11 +38,13 @@ jobs:
             target: ppc64le
     steps:
       - uses: actions/checkout@v6
-      - name: Install uv and Python
+      - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
           python-version: '3'
+      - name: Set up Python
+        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -62,7 +64,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+          ls -l dist
+          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
           uv run pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
@@ -79,7 +82,8 @@ jobs:
             set -ex
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+            ls -l dist
+            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
             uv run pytest
 
   musllinux:
@@ -97,11 +101,13 @@ jobs:
             target: armv7
     steps:
       - uses: actions/checkout@v6
-      - name: Install uv and Python
+      - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
           python-version: '3'
+      - name: Set up Python
+        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -125,7 +131,8 @@ jobs:
             apk add py3-pip py3-virtualenv
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+            ls -l dist
+            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
             uv run pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') }}
@@ -140,7 +147,8 @@ jobs:
             set -ex
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
-            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+            ls -l dist
+            uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
             uv run pytest
 
   windows:
@@ -159,11 +167,13 @@ jobs:
             python_arch: arm64
     steps:
       - uses: actions/checkout@v6
-      - name: Install uv and Python
+      - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
           python-version: 3.13-${{ matrix.platform.python_arch }}
+      - name: Set up Python
+        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -181,7 +191,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+          ls -l dist
+          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
           uv run pytest
 
   macos:
@@ -195,11 +206,13 @@ jobs:
             target: aarch64
     steps:
       - uses: actions/checkout@v6
-      - name: Install uv and Python
+      - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
           python-version: '3'
+      - name: Set up Python
+        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -216,7 +229,8 @@ jobs:
           set -ex
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
-          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
+          ls -l dist
+          uv run pip install box_intersect_lib_py --find-links dist --force-reinstall --no-build
           uv run pytest
 
   sdist:
