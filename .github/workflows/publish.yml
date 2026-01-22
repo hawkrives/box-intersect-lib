@@ -25,7 +25,7 @@ jobs:
     - uses: actions-rust-lang/setup-rust-toolchain@v1
     - name: Install python dependencies
       run: |
-          pip install numpy 
+          pip install numpy
     - name: Build manylinux container
       run: docker build -f Dockerfile.build-manylinux . -t box-intersect-deploy
     - name: Load wheels
@@ -48,8 +48,8 @@ jobs:
       fail-fast: false
       matrix:
           # macos-13 is x86, macos-14 is M1 ARM
-          os: [windows-latest, macos-13, macos-14]
-          python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+          os: [windows-latest, macos-13, macos-14, macos-15]
+          python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
     - uses: actions/checkout@v6
     - name: Set up Python ${{ matrix.python-version }}
