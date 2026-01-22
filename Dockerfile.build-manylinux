@@ -1,31 +1,23 @@
 ARG ARCH=x86_64
-FROM quay.io/pypa/manylinux2014_${ARCH}
+FROM quay.io/pypa/manylinux2014_${ARCH} AS base
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:$PATH"
 # force cargo to update index
 RUN cargo search --limit 1
 
-RUN /opt/python/cp313-cp313/bin/pip install maturin
-RUN /opt/python/cp312-cp312/bin/pip install maturin
-RUN /opt/python/cp311-cp311/bin/pip install maturin
-RUN /opt/python/cp310-cp310/bin/pip install maturin
-RUN /opt/python/cp39-cp39/bin/pip install maturin
-RUN /opt/python/cp38-cp38/bin/pip install maturin
-
-RUN mkdir /work
+ARG PYTHON_VERSION=${PYTHON_VERSION?:PYTHON_VERSION is a required build-arg}
+RUN /opt/python/cp${PYTHON_VERSION}-cp${PYTHON_VERSION}/bin/pip install maturin
 
 WORKDIR /work
 COPY ./box-intersect-lib ./box-intersect-lib
 COPY ./box-intersect-lib-py ./box-intersect-lib-py
 COPY ./scripts ./scripts
-COPY ./README.md ./box-intersect-lib-py/README.md
-COPY ./LICENSE.txt ./box-intersect-lib-py/LICENSE.txt
+COPY ./README.md ./LICENSE.txt ./
 
 WORKDIR /work/box-intersect-lib-py
 
-RUN bash ../scripts/build.sh /opt/python/cp312-cp312/bin/
-RUN bash ../scripts/build.sh /opt/python/cp311-cp311/bin/
-RUN bash ../scripts/build.sh /opt/python/cp310-cp310/bin/
-RUN bash ../scripts/build.sh /opt/python/cp39-cp39/bin/
-RUN bash ../scripts/build.sh /opt/python/cp38-cp38/bin/
+RUN bash ../scripts/build.sh /opt/python/cp${PYTHON_VERSION}-cp${PYTHON_VERSION}/bin/
+
+FROM scratch AS artifacts
+COPY --from=base /work/box-intersect-lib-py/target/wheels /
