@@ -59,7 +59,7 @@ jobs:
         if: ${{ startsWith(matrix.platform.target, 'x86_64') }}
         shell: bash
         run: |
-          set -e
+          set -ev
           cd crates/box-intersect-lib-py
           uv sync --no-install-project
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
@@ -76,7 +76,7 @@ jobs:
             apt-get install -y --no-install-recommends python3 python3-pip
             pip3 install -U pip
           run: |
-            set -e
+            set -ev
             cd crates/box-intersect-lib-py
             uv sync --no-install-project
             uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
@@ -121,7 +121,7 @@ jobs:
           image: alpine:latest
           options: -v ${{ github.workspace }}:/io -w /io
           run: |
-            set -e
+            set -ev
             apk add py3-pip py3-virtualenv
             cd crates/box-intersect-lib-py
             uv sync --no-install-project
@@ -137,7 +137,7 @@ jobs:
           install: |
             apk add py3-virtualenv
           run: |
-            set -e
+            set -ev
             cd crates/box-intersect-lib-py
             uv sync --no-install-project
             uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
@@ -178,7 +178,7 @@ jobs:
       - name: pytest
         shell: bash
         run: |
-          set -e
+          set -ev
           cd crates/box-intersect-lib-py
           uv sync --no-install-project
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
@@ -213,7 +213,7 @@ jobs:
           path: dist
       - name: pytest
         run: |
-          set -e
+          set -ev
           cd crates/box-intersect-lib-py
           uv sync --no-install-project
           uv run pip install box_intersect_lib_py --find-links dist --force-reinstall
