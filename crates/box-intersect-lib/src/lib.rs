@@ -8,7 +8,7 @@ mod non_max_suppression;
 mod rts_tree;
 
 pub use crate::box_def::Box;
-pub use crate::efficient_coverage::{efficient_coverage, Point};
+pub use crate::efficient_coverage::{Point, efficient_coverage};
 pub use crate::find_intersecting::{
     find_intersecting_boxes_all_cmp, find_intersecting_boxes_linesearch,
     find_intersecting_boxes_rts,

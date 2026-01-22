@@ -144,8 +144,8 @@ pub fn efficient_coverage(
 mod tests {
     // Note this useful idiom: importing names from outer (for mod tests) scope.
     use super::*;
-    use rand::prelude::*;
     use rand::Rng;
+    use rand::prelude::*;
     use rand_chacha::ChaCha8Rng;
     use rand_distr::{Distribution, Normal};
 
