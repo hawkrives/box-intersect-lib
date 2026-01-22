@@ -1,4 +1,5 @@
+#!/usr/bin/env bash
 set -e .
 
-(cd box-intersect-lib && cargo clippy)
-(cd box-intersect-lib-py && cargo clippy)
+cargo clippy
+cargo fmt --check
