@@ -5,10 +5,8 @@ use pyo3::exceptions::PyAssertionError;
 use pyo3::prelude::*;
 use pyo3::types::PyList;
 
-
 type BoundU32Array2<'py> = pyo3::Bound<'py, PyArray2<u32>>;
 type BoundU32Array1<'py> = pyo3::Bound<'py, PyArray1<u32>>;
-
 
 fn generate_boxes<Func>(array: &PyReadonlyArray2<i32>, func: &mut Func) -> PyResult<()>
 where
@@ -77,16 +75,16 @@ fn np_arr_to_box(array: &PyReadonlyArray1<i32>) -> PyResult<Box> {
     Ok(box_)
 }
 
-fn adj_list_to_py_list(py: Python<'_>, adj_list: Vec<Vec<u32>>) -> PyResult<pyo3::Bound<'_, PyList>> {
-    let mut list:Vec<BoundU32Array1<'_>> = Vec::new();
+fn adj_list_to_py_list(
+    py: Python<'_>,
+    adj_list: Vec<Vec<u32>>,
+) -> PyResult<pyo3::Bound<'_, PyList>> {
+    let mut list: Vec<BoundU32Array1<'_>> = Vec::new();
     for l in adj_list {
         let pyl = PyArray::from_vec(py, l.clone());
         list.push(pyl);
     }
-    PyList::new(
-        py,
-        list,
-    )
+    PyList::new(py, list)
 }
 
 #[pyfunction]
@@ -95,7 +93,9 @@ fn find_intersecting_boxes_rts<'py>(
     boxes_array: PyReadonlyArray2<i32>,
 ) -> PyResult<Bound<'py, PyList>> {
     let boxes = np_arr_to_boxes(&boxes_array)?;
-    let adj_list = Python::detach(py, move || box_intersect_lib::find_intersecting_boxes_rts(&boxes));
+    let adj_list = Python::detach(py, move || {
+        box_intersect_lib::find_intersecting_boxes_rts(&boxes)
+    });
     adj_list_to_py_list(py, adj_list)
 }
 
@@ -105,8 +105,9 @@ fn find_intersecting_boxes_linesearch<'py>(
     boxes_array: PyReadonlyArray2<i32>,
 ) -> PyResult<Bound<'py, PyList>> {
     let boxes = np_arr_to_boxes(&boxes_array)?;
-    let adj_list =
-        Python::detach(py, move || box_intersect_lib::find_intersecting_boxes_linesearch(&boxes));
+    let adj_list = Python::detach(py, move || {
+        box_intersect_lib::find_intersecting_boxes_linesearch(&boxes)
+    });
     adj_list_to_py_list(py, adj_list)
 }
 
@@ -220,9 +221,9 @@ fn efficient_coverage<'py>(
 ) -> PyResult<Vec<((i32, i32), BoundU32Array1<'py>)>> {
     let boxes = np_arr_to_boxes(&boxes_array)?;
     let results = Python::detach(py, move || {
-            box_intersect_lib::efficient_coverage(&boxes, tile_width, tile_height)
-        })
-        .map_err(PyAssertionError::new_err)?;
+        box_intersect_lib::efficient_coverage(&boxes, tile_width, tile_height)
+    })
+    .map_err(PyAssertionError::new_err)?;
     let py_results = results
         .iter()
         .map(|(p, intlist)| ((p.x, p.y), PyArray::from_vec(py, intlist.to_owned())))
