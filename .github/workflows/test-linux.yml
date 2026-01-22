@@ -76,5 +76,6 @@ jobs:
       - name: Run integration test on native built wheel
         shell: bash
         run: |
-            pip install dist/*cp312*.whl
+            python_version="$(echo "${{ matrix.python-version }}" | sed 's/[^0-9]//')"
+            pip install dist/*${python_version}*.whl
             python scripts/integration_test.py

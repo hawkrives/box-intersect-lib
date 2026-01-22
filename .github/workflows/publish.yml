@@ -15,6 +15,10 @@ on:
 jobs:
   build-manylinux-wheels:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
     - uses: actions/checkout@v6
@@ -33,7 +37,8 @@ jobs:
     - name: Run integration test on native built wheel
       shell: bash
       run: |
-          pip install dist/*cp312*.whl
+          python_version="$(echo "${{ matrix.python-version }}" | sed 's/[^0-9]//')"
+          pip install dist/*${python_version}*.whl
           python scripts/integration_test.py
     - name: Store wheels
       uses: actions/upload-artifact@v6
