@@ -99,7 +99,7 @@ mod tests {
     use rand::Rng;
     use rand_distr::StandardNormal;
     fn generate_boxes(region_size: i32, num_boxes: i32, max_box_size: i32) -> Vec<Box> {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         (0..num_boxes)
             .map(|_| {
                 let x1f: f64 = rng.sample(StandardNormal);
@@ -107,8 +107,8 @@ mod tests {
                 Box {
                     x1: (x1f * region_size as f64) as i32,
                     y1: (y1f * region_size as f64) as i32,
-                    xs: rng.gen_range(1..max_box_size as u32),
-                    ys: rng.gen_range(1..max_box_size as u32),
+                    xs: rng.random_range(1..max_box_size as u32),
+                    ys: rng.random_range(1..max_box_size as u32),
                 }
             })
             .collect()

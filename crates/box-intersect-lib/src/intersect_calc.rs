@@ -26,22 +26,22 @@ mod tests {
 
     #[test]
     fn test_boxes_area() {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let region_size = 400;
         let num_boxes = 1000;
         let max_box_size = 100;
         for _ in 0..num_boxes {
             let b1 = Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             };
             let b2 = Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             };
             assert_eq!(does_intersect(&b1, &b2), (intersect_area(&b1, &b2) != 0));
         }

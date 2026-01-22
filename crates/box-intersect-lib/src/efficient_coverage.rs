@@ -156,8 +156,8 @@ mod tests {
             .map(|_| Box {
                 x1: sampler.sample(&mut rng) as i32,
                 y1: sampler.sample(&mut rng) as i32,
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect()
     }

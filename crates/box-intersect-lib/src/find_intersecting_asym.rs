@@ -38,24 +38,24 @@ mod tests {
     }
     #[test]
     fn test_boxes_asym_acc() {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let region_size = 2000;
         let num_boxes = 10000;
         let max_box_size = 100;
         let boxes_src: Vec<Box> = (0..num_boxes)
             .map(|_| Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect();
         let boxes_dest: Vec<Box> = (0..num_boxes)
             .map(|_| Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect();
         let gold_result = find_intersecting_boxes_asym_gold(&boxes_src, &boxes_dest);
@@ -68,16 +68,16 @@ mod tests {
 
     #[test]
     fn test_boxes_rts_zero_length_array() {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let region_size = 2000;
         let num_boxes = 100;
         let max_box_size = 100;
         let boxes_dest: Vec<Box> = (0..num_boxes)
             .map(|_| Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect();
         let boxes_src: Vec<Box> = Vec::new();

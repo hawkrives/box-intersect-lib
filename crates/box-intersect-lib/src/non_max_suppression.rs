@@ -81,32 +81,32 @@ mod tests {
 
     #[allow(dead_code)]
     fn generate_boxes(region_size: i32, num_boxes: i32, max_box_size: i32) -> Vec<Box> {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let sampler = Normal::new(0.0, region_size as f64 / 3.0).unwrap();
         (0..num_boxes)
             .map(|_| Box {
                 x1: sampler.sample(&mut rng) as i32,
                 y1: sampler.sample(&mut rng) as i32,
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect()
     }
     #[test]
     fn test_nms_acc() {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         let region_size = 1000;
         let num_boxes = 10000;
         let max_box_size = 100;
         let boxes: Vec<Box> = (0..num_boxes)
             .map(|_| Box {
-                x1: rng.gen_range(0..region_size - max_box_size),
-                y1: rng.gen_range(0..region_size - max_box_size),
-                xs: rng.gen_range(1..max_box_size as u32),
-                ys: rng.gen_range(1..max_box_size as u32),
+                x1: rng.random_range(0..region_size - max_box_size),
+                y1: rng.random_range(0..region_size - max_box_size),
+                xs: rng.random_range(1..max_box_size as u32),
+                ys: rng.random_range(1..max_box_size as u32),
             })
             .collect();
-        let scores: Vec<f64> = (0..num_boxes).map(|_| rng.gen()).collect();
+        let scores: Vec<f64> = (0..num_boxes).map(|_| rng.random()).collect();
         let gold_result = find_non_max_suppressed_gold(&boxes, &scores, 0.1, 0.5);
         let test_result = find_non_max_suppressed(&boxes, &scores, 0.1, 0.5);
         let num_survivors: usize = gold_result.iter().map(|x| if *x { 1 } else { 0 }).sum();

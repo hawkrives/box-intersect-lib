@@ -1,7 +1,12 @@
 [workspace]
 resolver = "3"
-members = ["box-intersect-lib", "box-intersect-lib-py"]
+members = ["crates/*"]
 
-[workspace.metadata]
+[workspace.package]
+version = "0.8.5"
+edition = "2024"
 readme = "./README.md"
-license-file = "./LICENSE.md"
+license = "Apache-2.0"
+keywords = ["box", "algorithm", "pyo3"]
+homepage = "https://github.com/Techcyte/box-intersect-lib"
+repository = "https://github.com/Techcyte/box-intersect-lib.git"
