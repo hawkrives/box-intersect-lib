@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euv
+set -eux
 
 cargo clippy
 cargo fmt --check
