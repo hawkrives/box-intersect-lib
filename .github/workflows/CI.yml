@@ -166,7 +166,7 @@ jobs:
         platform:
           - runner: windows-latest
             target: x64
-            python_arch: x86_x64
+            python_arch: x64
           - runner: windows-latest
             target: x86
             python_arch: x86
@@ -175,13 +175,13 @@ jobs:
             python_arch: arm64
     steps:
       - uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          architecture: ${{ matrix.platform.python_arch }}
       - name: Install uv
         uses: astral-sh/setup-uv@v7
-        with:
-          working-directory: crates/box-intersect-lib-py
-          python-version: '3'
-      - name: Set up Python
-        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
