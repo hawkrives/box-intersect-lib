@@ -166,19 +166,21 @@ jobs:
         platform:
           - runner: windows-latest
             target: x64
+            python_arch: x86_64
           - runner: windows-latest
             target: x86
+            python_arch: i686
           - runner: windows-11-arm
             target: aarch64
+            python_arch: aarch64
     steps:
       - uses: actions/checkout@v6
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
-          python-version: '3'
       - name: Set up Python
-        run: uv python install
+        run: uv python install cpython-3.13-windows-${{ matrix.platform.python_arch }}-none
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
