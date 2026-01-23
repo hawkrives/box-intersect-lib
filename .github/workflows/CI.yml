@@ -179,7 +179,7 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
-          python-version: 3.13-${{ matrix.platform.python_arch }}
+          python-version: '3'
       - name: Set up Python
         run: uv python install
       - name: Build wheels
