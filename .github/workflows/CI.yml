@@ -81,10 +81,9 @@ jobs:
             apt-get install -y --no-install-recommends python3 python3-pip curl ca-certificates
             pip3 install -U pip
             curl -LsSf https://astral.sh/uv/install.sh | sh
-          env: |
-            PATH=/root/.local/bin:$PATH
           run: |
             set -ex
+            export PATH="/root/.local/bin:$PATH"
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
@@ -155,10 +154,9 @@ jobs:
           install: |
             apk add py3-virtualenv curl ca-certificates
             curl -LsSf https://astral.sh/uv/install.sh | sh
-          env: |
-            PATH=/root/.local/bin:$PATH
           run: |
             set -ex
+            export PATH="/root/.local/bin:$PATH"
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
