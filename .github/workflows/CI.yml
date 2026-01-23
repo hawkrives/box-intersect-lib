@@ -204,7 +204,7 @@ jobs:
           uv sync --no-install-project --no-build
           ls -l ../../dist
           cd ../..
-          uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+          uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/Scripts/python.exe
           cd crates/box-intersect-lib-py
           uv run --no-sync pytest
 
