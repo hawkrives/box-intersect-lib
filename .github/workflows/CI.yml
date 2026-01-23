@@ -65,8 +65,10 @@ jobs:
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
           ls -l ../../dist
-          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-          uv run pytest
+          cd ../..
+          uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+          cd crates/box-intersect-lib-py
+          uv run --no-sync pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') && matrix.platform.target != 'ppc64' }}
         uses: uraimo/run-on-arch-action@v2
@@ -83,8 +85,10 @@ jobs:
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
-            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-            uv run pytest
+            cd ../..
+            uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+            cd crates/box-intersect-lib-py
+            uv run --no-sync pytest
 
   musllinux:
     runs-on: ${{ matrix.platform.runner }}
@@ -132,8 +136,10 @@ jobs:
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
-            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-            uv run pytest
+            cd ../..
+            uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+            cd crates/box-intersect-lib-py
+            uv run --no-sync pytest
       - name: pytest
         if: ${{ !startsWith(matrix.platform.target, 'x86') }}
         uses: uraimo/run-on-arch-action@v2
@@ -148,8 +154,10 @@ jobs:
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
-            uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-            uv run pytest
+            cd ../..
+            uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+            cd crates/box-intersect-lib-py
+            uv run --no-sync pytest
 
   windows:
     runs-on: ${{ matrix.platform.runner }}
@@ -192,8 +200,10 @@ jobs:
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
           ls -l ../../dist
-          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-          uv run pytest
+          cd ../..
+          uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+          cd crates/box-intersect-lib-py
+          uv run --no-sync pytest
 
   macos:
     runs-on: ${{ matrix.platform.runner }}
@@ -230,8 +240,10 @@ jobs:
           cd crates/box-intersect-lib-py
           uv sync --no-install-project --no-build
           ls -l ../../dist
-          uv run pip install box_intersect_lib_py --find-links ../../dist --force-reinstall --no-build
-          uv run pytest
+          cd ../..
+          uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
+          cd crates/box-intersect-lib-py
+          uv run --no-sync pytest
 
   sdist:
     runs-on: ubuntu-latest
