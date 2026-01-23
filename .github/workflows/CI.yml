@@ -52,7 +52,6 @@ jobs:
           name: wheels-linux-${{ matrix.platform.target }}
           path: dist
       - name: pytest
-        if: ${{ startsWith(matrix.platform.target, 'x86_64') || startsWith(matrix.platform.target, 'aarch64') }}
         shell: bash
         run: |
           set -ex
@@ -97,7 +96,6 @@ jobs:
           name: wheels-musllinux-${{ matrix.platform.target }}
           path: dist
       - name: pytest
-        if: ${{ startsWith(matrix.platform.target, 'x86_64') }}
         uses: addnab/docker-run-action@v3
         with:
           image: alpine:latest
@@ -106,26 +104,6 @@ jobs:
             set -ex
             apk add py3-pip py3-virtualenv curl ca-certificates
             curl -LsSf https://astral.sh/uv/install.sh | sh
-            export PATH="/root/.local/bin:$PATH"
-            cd crates/box-intersect-lib-py
-            uv sync --no-install-project --no-build
-            ls -l ../../dist
-            cd ../..
-            uv pip install box_intersect_lib_py --find-links dist --force-reinstall --no-index --python crates/box-intersect-lib-py/.venv/bin/python
-            cd crates/box-intersect-lib-py
-            uv run --no-sync pytest
-      - name: pytest
-        if: ${{ !startsWith(matrix.platform.target, 'x86') }}
-        uses: uraimo/run-on-arch-action@v2
-        with:
-          arch: ${{ matrix.platform.target }}
-          distro: alpine_latest
-          githubToken: ${{ github.token }}
-          install: |
-            apk add py3-virtualenv curl ca-certificates
-            curl -LsSf https://astral.sh/uv/install.sh | sh
-          run: |
-            set -ex
             export PATH="/root/.local/bin:$PATH"
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
