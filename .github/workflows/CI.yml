@@ -179,8 +179,9 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           working-directory: crates/box-intersect-lib-py
+          python-version: cpython-3.13-windows-${{ matrix.platform.python_arch }}-none
       - name: Set up Python
-        run: uv python install cpython-3.13-windows-${{ matrix.platform.python_arch }}-none
+        run: uv python install
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
