@@ -78,8 +78,11 @@ jobs:
           githubToken: ${{ github.token }}
           install: |
             apt-get update
-            apt-get install -y --no-install-recommends python3 python3-pip
+            apt-get install -y --no-install-recommends python3 python3-pip curl ca-certificates
             pip3 install -U pip
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+          env: |
+            PATH=/root/.local/bin:$PATH
           run: |
             set -ex
             cd crates/box-intersect-lib-py
@@ -132,7 +135,9 @@ jobs:
           options: -v ${{ github.workspace }}:/io -w /io
           run: |
             set -ex
-            apk add py3-pip py3-virtualenv
+            apk add py3-pip py3-virtualenv curl ca-certificates
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+            export PATH="/root/.local/bin:$PATH"
             cd crates/box-intersect-lib-py
             uv sync --no-install-project --no-build
             ls -l ../../dist
@@ -148,7 +153,10 @@ jobs:
           distro: alpine_latest
           githubToken: ${{ github.token }}
           install: |
-            apk add py3-virtualenv
+            apk add py3-virtualenv curl ca-certificates
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+          env: |
+            PATH=/root/.local/bin:$PATH
           run: |
             set -ex
             cd crates/box-intersect-lib-py
